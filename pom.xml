@@ -13,8 +13,11 @@
     <version>2.5.1</version>
   </parent>
   <name>pi_car_server</name>
-
   <repositories>
+<!--    <repository>-->
+<!--      <id>local-maven-repo</id>-->
+<!--      <url>file:///${project.basedir}/lib</url>-->
+<!--    </repository>-->
     <repository>
       <id>oss-snapshots-repo</id>
       <name>Sonatype OSS Maven Repository</name>
@@ -91,6 +94,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.somegroup.id</groupId>
+      <artifactId>simplecaptcha</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.telegram</groupId>
       <artifactId>telegrambots-spring-boot-starter</artifactId>
       <version>5.2.0</version>
@@ -111,6 +119,26 @@
             <goals>
               <goal>repackage</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>lib/simplecaptcha-1.2.1.jar</file>
+              <groupId>com.somegroup.id</groupId>
+              <artifactId>simplecaptcha</artifactId>
+              <version>1.2.1</version>
+              <packaging>jar</packaging>
+            </configuration>
           </execution>
         </executions>
       </plugin>

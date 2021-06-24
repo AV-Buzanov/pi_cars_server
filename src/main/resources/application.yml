@@ -1,9 +1,9 @@
-spring:
-  mvc:
-    servlet:
-      path: /api
-server:
-  port: 8080
+#spring:
+#  mvc:
+#    servlet:
+#      path: /api
+#server:
+#  port: 8080
 bot:
   name: MyOwn2TestBot
   token: 915135203:AAH2MWaaGTg2FhRcNn9T_K6zKkr6V0EbigA

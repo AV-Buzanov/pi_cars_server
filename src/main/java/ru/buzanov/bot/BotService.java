@@ -1,6 +1,7 @@
 package ru.buzanov.bot;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -17,7 +18,13 @@ public class BotService implements IBotService {
     private static final Pattern WORDS_PATTERN = Pattern.compile("[a-zA-Z]+");
     private static final Pattern DIGITS_PATTERN = Pattern.compile("\\d+");
 
-    public SendMessage processingMessage(Update update, IRestClient service) {
+    private final IRestClient service;
+
+    public BotService(@Autowired IRestClient service) {
+        this.service = service;
+    }
+
+    public String processingMessage(Update update, CarType carType) {
         Message message = update.getMessage();
         String text = message.getText();
         log.info("receive from bot: {}", text);
@@ -38,14 +45,14 @@ public class BotService implements IBotService {
                 else
                     timer = Integer.parseInt(dgt);
                 if (timer > 2000) throw new NumberFormatException();
-                service.send(CarType.BLUE, wds, timer);
+                service.send(carType, wds, timer);
                 counter += timer + 100;
                 Thread.sleep(100);
             } catch (Exception e) {
                 break;
             }
         }
-        return SendMessage.builder().text("ok").chatId(String.valueOf(message.getChatId())).build();
+        return "ок";
     }
 
 }

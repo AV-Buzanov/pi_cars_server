@@ -7,6 +7,11 @@ server:
 bot:
   name: MyOwn2TestBot
   token: 915135203:AAH2MWaaGTg2FhRcNn9T_K6zKkr6V0EbigA
+  chanel: test43233
 car:
-  host: http://192.168.1.234:8080/
+  host: http://192.168.1.234:8081/
+  holdTime: 60
+secret:
+  min: 10000
+  max: 100000
 

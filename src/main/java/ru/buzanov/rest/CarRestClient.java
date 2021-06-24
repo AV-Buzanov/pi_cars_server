@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import ru.buzanov.CarType;
 
@@ -34,6 +35,11 @@ public class CarRestClient implements IRestClient {
         headers.set("command", command);
         headers.set("delay", String.valueOf(delay));
         RequestEntity<String> requestEntity = new RequestEntity<>(headers, HttpMethod.GET, URI.create(path));
-        return restTemplate.exchange(requestEntity, String.class).getBody();
+        try {
+            return restTemplate.exchange(requestEntity, String.class).getBody();
+        } catch (RestClientException e) {
+            log.warn("Ошибка при отправке комманды", e);
+        }
+        return null;
     }
 }
